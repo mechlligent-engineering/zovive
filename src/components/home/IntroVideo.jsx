@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const INTRO_HOLD_MS = 1900
+const INTRO_HOLD_MS = 1400
 
 function SpeakerIcon({ muted, ...props }) {
   return (
@@ -49,6 +49,7 @@ export default function IntroVideo() {
   const [inView, setInView] = useState(false)
   const [phase, setPhase] = useState('intro') // 'intro' | 'playing' | 'ended'
   const [muted, setMuted] = useState(true)
+  const [showSoundHint, setShowSoundHint] = useState(false)
 
   // Track whether the section is meaningfully in view.
   useEffect(() => {
@@ -84,6 +85,17 @@ export default function IntroVideo() {
 
     return () => clearTimeout(introTimerRef.current)
   }, [phase, inView])
+
+  // Briefly hint that the video has sound whenever playback starts.
+  useEffect(() => {
+    if (phase === 'playing') {
+      setShowSoundHint(true)
+      const timer = setTimeout(() => setShowSoundHint(false), 3000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowSoundHint(false)
+    }
+  }, [phase])
 
   const handleEnded = () => setPhase('ended')
 
@@ -186,14 +198,30 @@ export default function IntroVideo() {
         )}
       </AnimatePresence>
 
-      <button
-        type="button"
-        onClick={toggleMute}
-        aria-label={muted ? 'Unmute video' : 'Mute video'}
-        className="focus-ring absolute bottom-6 right-6 flex h-11 w-11 items-center justify-center rounded-full border border-signal-500/40 bg-forest-950/60 text-signal-400 backdrop-blur-md transition-all duration-300 hover:border-signal-400 hover:shadow-[0_0_20px_2px_rgba(31,191,163,0.4)] md:bottom-8 md:right-8"
-      >
-        <SpeakerIcon muted={muted} className="h-5 w-5" />
-      </button>
+      <div className="absolute top-1/2 right-6 -translate-y-1/2 flex flex-col items-center gap-3 md:right-8">
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? 'Unmute video' : 'Mute video'}
+          className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-signal-500/40 bg-forest-950/60 text-signal-400 backdrop-blur-md transition-all duration-300 hover:border-signal-400 hover:shadow-[0_0_20px_2px_rgba(31,191,163,0.4)]"
+        >
+          <SpeakerIcon muted={muted} className="h-5 w-5" />
+        </button>
+
+        <AnimatePresence>
+          {showSoundHint && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.4 }}
+              className="whitespace-nowrap rounded-full border border-signal-500/30 bg-forest-950/80 px-3 py-1.5 text-xs text-mist-100 backdrop-blur-md"
+            >
+              🔊 Turn on sound
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.section>
   )
 }

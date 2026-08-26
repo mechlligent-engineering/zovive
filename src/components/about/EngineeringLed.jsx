@@ -26,7 +26,7 @@ export default function EngineeringLed() {
             <motion.span
               key={tag}
               variants={revealItem}
-              className="inline-flex items-center gap-2 rounded-full border border-signal-500/20 bg-forest-900/40 px-4 py-2 font-display text-xs tracking-wide text-mist-50/85"
+              className="inline-flex items-center gap-2 rounded-full border border-signal-500/20 bg-forest-900/40 px-4 py-2 font-display text-sm tracking-wide text-mist-50/85"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-signal-400" />
               {tag}
