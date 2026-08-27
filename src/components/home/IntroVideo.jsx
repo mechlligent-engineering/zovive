@@ -198,7 +198,7 @@ export default function IntroVideo() {
         )}
       </AnimatePresence>
 
-      <div className="absolute top-1/2 right-6 -translate-y-1/2 flex flex-col items-center gap-3 md:right-8">
+      <div className="absolute bottom-24 right-6 flex flex-col items-center gap-3 md:top-1/2 md:bottom-auto md:right-8 md:-translate-y-1/2">
         <button
           type="button"
           onClick={toggleMute}

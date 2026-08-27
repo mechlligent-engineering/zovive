@@ -1,7 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal } from '../Reveal.jsx'
 import { PIPELINE_STAGES } from '../../data/pipeline.js'
+
+const EASE = [0.16, 1, 0.3, 1]
+const AUTO_CYCLE_START_DELAY = 500
+const AUTO_CYCLE_STEP_MS = 700
 
 function ChevronIcon(props) {
   return (
@@ -15,8 +19,61 @@ export default function ApproachStepper() {
   const [active, setActive] = useState(0)
   const count = PIPELINE_STAGES.length
 
+  const sectionRef = useRef(null)
+  const autoCycleStartedRef = useRef(false)
+  const userInteractedRef = useRef(false)
+  const timerRef = useRef(null)
+
+  // Take user interaction as permission to hand control back immediately —
+  // any hover/click/tap cancels whatever the auto-cycle is doing.
+  const activate = (i) => {
+    userInteractedRef.current = true
+    clearTimeout(timerRef.current)
+    setActive(i)
+  }
+
+  // Auto-cycle once through all 5 stages the first time the section comes into view.
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const runCycle = () => {
+      let i = 0
+      const step = () => {
+        if (userInteractedRef.current) return
+        setActive(i)
+        if (i < count - 1) {
+          i += 1
+          timerRef.current = setTimeout(step, AUTO_CYCLE_STEP_MS)
+        } else {
+          timerRef.current = setTimeout(() => {
+            if (!userInteractedRef.current) setActive(0)
+          }, AUTO_CYCLE_STEP_MS)
+        }
+      }
+      timerRef.current = setTimeout(step, AUTO_CYCLE_START_DELAY)
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !autoCycleStartedRef.current) {
+          autoCycleStartedRef.current = true
+          if (!userInteractedRef.current) runCycle()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(section)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(timerRef.current)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <section className="relative bg-forest-950 px-6 py-28 md:px-10 md:py-36">
+    <section ref={sectionRef} className="relative bg-forest-950 px-6 py-28 md:px-10 md:py-36">
       <div className="mx-auto max-w-7xl">
         <Reveal className="max-w-2xl">
           <p className="font-display text-xs font-medium tracking-[0.3em] text-signal-400 uppercase">
@@ -58,9 +115,9 @@ export default function ApproachStepper() {
                 <div key={stage.id} className="relative flex flex-col items-center">
                   <button
                     type="button"
-                    onMouseEnter={() => setActive(i)}
-                    onFocus={() => setActive(i)}
-                    onClick={() => setActive(i)}
+                    onMouseEnter={() => activate(i)}
+                    onFocus={() => activate(i)}
+                    onClick={() => activate(i)}
                     className="focus-ring group flex flex-col items-center gap-4 rounded-2xl py-2"
                   >
                     <span className="relative flex h-14 w-14 items-center justify-center">
@@ -71,10 +128,11 @@ export default function ApproachStepper() {
                         />
                       )}
                       <motion.span
+                        animate={{ scale: active === i ? 1.08 : 1 }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.96 }}
-                        transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-                        className={`relative flex h-14 w-14 items-center justify-center rounded-full border font-display text-sm font-medium transition-all duration-300 ${
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className={`relative flex h-14 w-14 items-center justify-center rounded-full border font-display text-sm font-medium transition-colors duration-300 ${
                           active === i
                             ? 'border-signal-400 bg-signal-500/15 text-signal-300 shadow-[0_0_24px_2px_rgba(31,191,163,0.45)]'
                             : 'border-mist-400/25 bg-forest-900 text-mist-400 group-hover:border-signal-500/50'
@@ -84,7 +142,7 @@ export default function ApproachStepper() {
                       </motion.span>
                     </span>
                     <span
-                      className={`font-display text-sm tracking-wide transition-colors ${
+                      className={`font-display text-sm tracking-wide transition-colors duration-300 ${
                         active === i ? 'text-mist-50' : 'text-mist-400 group-hover:text-mist-50'
                       }`}
                     >
@@ -107,7 +165,7 @@ export default function ApproachStepper() {
                 {active === i && (
                   <motion.div
                     layoutId="approach-pointer"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    transition={{ duration: 0.35, ease: EASE }}
                     className="mt-4 h-3 w-3 rotate-45 border-l border-t border-signal-400 bg-forest-900"
                   />
                 )}
@@ -116,13 +174,13 @@ export default function ApproachStepper() {
           </div>
 
           <div className="relative -mt-1.5 min-h-[100px] overflow-hidden rounded-2xl border border-signal-500/15 bg-forest-900/40 px-8 py-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence initial={false}>
               <motion.div
                 key={active}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, y: -6, position: 'absolute' }}
+                transition={{ duration: 0.35, ease: EASE }}
               >
                 <p className="font-display text-sm font-medium tracking-wide text-signal-400">
                   {PIPELINE_STAGES[active].index} — {PIPELINE_STAGES[active].title}
@@ -169,8 +227,10 @@ export default function ApproachStepper() {
                         />
                       )}
                       <motion.span
+                        animate={{ scale: isActive ? 1.08 : 1 }}
                         whileTap={{ scale: 0.94 }}
-                        className={`relative flex h-8 w-8 items-center justify-center rounded-full border font-display text-xs font-medium transition-all duration-300 ${
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className={`relative flex h-8 w-8 items-center justify-center rounded-full border font-display text-xs font-medium transition-colors duration-300 ${
                           isActive
                             ? 'border-signal-400 bg-signal-500/15 text-signal-300 shadow-[0_0_16px_1px_rgba(31,191,163,0.4)]'
                             : 'border-mist-400/25 bg-forest-900 text-mist-400'
@@ -181,7 +241,7 @@ export default function ApproachStepper() {
                     </span>
                     <button
                       type="button"
-                      onClick={() => setActive(isActive ? -1 : i)}
+                      onClick={() => activate(isActive ? -1 : i)}
                       className="focus-ring w-full rounded-xl border border-signal-500/10 bg-forest-900/40 px-4 py-3 text-left"
                     >
                       <span
@@ -189,13 +249,13 @@ export default function ApproachStepper() {
                       >
                         {stage.title}
                       </span>
-                      <AnimatePresence>
+                      <AnimatePresence initial={false}>
                         {isActive && (
                           <motion.p
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.35, ease: EASE }}
                             className="mt-2 text-sm leading-relaxed text-mist-400"
                           >
                             {stage.description}
