@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Logo } from '../components/Logo.jsx'
+import { LogoMark } from '../components/Logo.jsx'
 import { Button } from '../components/Button.jsx'
 import { NAV_LINKS } from '../data/nav.js'
 
@@ -33,7 +33,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-4 md:px-10">
         <Link to="/" className="focus-ring rounded-full" onClick={() => setOpen(false)}>
-          <Logo markClassName="h-10 w-10 md:h-11 md:w-11" wordmarkClassName="text-lg md:text-xl" />
+          <LogoMark className="h-12 w-auto md:h-14 md:w-auto" />
         </Link>
 
         <div className="hidden items-center gap-9 md:flex">

@@ -9,14 +9,18 @@ export const ENGINEERING_TAGS = [
 ]
 
 export const RESPONSIBLE_PRINCIPLES = [
-  'Non-lethal and ethical intervention',
-  'Wildlife-sensitive system design',
-  'Human verification for critical decisions',
-  'Privacy-conscious monitoring',
-  'Reduction of false alerts',
-  'Energy-efficient field deployment',
-  'Support for low-connectivity environments',
-  'Modular, site-specific configuration',
-  'Responsible data use',
-  'Compliance-oriented engineering',
+  { title: 'Non-lethal and ethical intervention' },
+  { title: 'Wildlife-sensitive system design' },
+  {
+    title: 'Human verification for critical decisions',
+    detail:
+      'Every detection can be reviewed and corrected by a human — from species identification to the cause of a fence event — so the system improves with real-world judgment, not just automated inference.',
+  },
+  { title: 'Privacy-conscious monitoring' },
+  { title: 'Reduction of false alerts' },
+  { title: 'Energy-efficient field deployment' },
+  { title: 'Support for low-connectivity environments' },
+  { title: 'Modular, site-specific configuration' },
+  { title: 'Responsible data use' },
+  { title: 'Compliance-oriented engineering' },
 ]

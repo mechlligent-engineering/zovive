@@ -50,7 +50,7 @@ export const PRODUCTS = [
     title: 'Administration Platform',
     description: 'A unified control layer for field teams and administrators to manage alerts and response.',
     summary:
-      'A central dashboard brings detections, alerts, device health, camera feeds, and telemetry into one operational view. Administrators can monitor system status, manage devices, and coordinate response across an entire deployment — the control layer that ties every other product into one coherent system.',
-    capabilities: ['Unified operations view', 'Device & system management', 'Role-based access for teams'],
+      'A central dashboard brings detections, alerts, device health, camera feeds, and telemetry into one operational view — aggregated across every site in a deployment, not just one. Field teams get a dedicated on-site system that keeps working even without internet access, while administrators get a cloud-hosted view, fully responsive on desktop or mobile, for oversight from anywhere. The control layer that ties every other product into one coherent system.',
+    capabilities: ['Multi-site aggregation', 'Works offline in the field', 'Mobile-responsive for field teams'],
   },
 ]

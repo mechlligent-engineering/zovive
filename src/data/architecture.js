@@ -11,7 +11,8 @@ export const ARCHITECTURE_NODES = [
     icon: 'tower',
     title: 'Base Station',
     short: 'Field infrastructure',
-    description: 'Local field infrastructure aggregates device data and relays it onward over available connectivity.',
+    description:
+      'The Base Station operates independently on-site — continuing to capture and process data with no internet connection — and syncs to the cloud once connectivity is available.',
   },
   {
     id: 'central-backend',

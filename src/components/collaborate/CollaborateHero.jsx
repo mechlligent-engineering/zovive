@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Reveal } from '../Reveal.jsx'
-import ImagePlaceholder from '../ImagePlaceholder.jsx'
 import collaborateHeroImg from '../../assets/collaborate-hero.png'
+
 export default function CollaborateHero() {
   return (
     <section className="bg-scanlines relative overflow-hidden bg-forest-950 px-6 pb-16 pt-36 md:px-10 md:pb-20 md:pt-44">

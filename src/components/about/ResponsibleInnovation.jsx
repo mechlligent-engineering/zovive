@@ -32,17 +32,22 @@ export default function ResponsibleInnovation() {
           </h2>
         </Reveal>
 
-        <RevealGroup className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-12 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {RESPONSIBLE_PRINCIPLES.map((principle) => (
             <motion.div
-              key={principle}
+              key={principle.title}
               variants={revealItem}
               className="flex items-start gap-3 rounded-2xl border border-signal-500/12 bg-forest-900/40 p-5"
             >
               <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-signal-500/30 text-signal-400">
                 <CheckIcon className="h-3.5 w-3.5" />
               </span>
-              <p className="text-sm leading-relaxed text-mist-50/90">{principle}</p>
+              <div>
+                <p className="text-sm leading-relaxed text-mist-50/90">{principle.title}</p>
+                {principle.detail && (
+                  <p className="mt-2 text-sm leading-relaxed text-mist-400">{principle.detail}</p>
+                )}
+              </div>
             </motion.div>
           ))}
         </RevealGroup>

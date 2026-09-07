@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Logo } from '../components/Logo.jsx'
+import { LogoMark } from '../components/Logo.jsx'
 import { NAV_LINKS } from '../data/nav.js'
 import { PRODUCTS } from '../data/products.js'
 
@@ -32,7 +32,7 @@ export default function Footer() {
       <div className="relative mx-auto max-w-[90rem] px-6 py-16 md:px-10">
         <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <Logo />
+            <LogoMark className="h-10 w-auto" />
             <p className="mt-4 text-sm leading-relaxed text-mist-400">
               An initiative of{' '}
               <span className="text-mist-50/80">Mechlligent Engineering Pvt. Ltd.</span>

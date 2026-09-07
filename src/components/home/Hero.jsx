@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import RadarField from '../RadarField.jsx'
 import { LogoMark } from '../Logo.jsx'
@@ -18,30 +19,32 @@ const word = {
 }
 
 export default function Hero() {
+  const contentRef = useRef(null)
+  const headlineRef = useRef(null)
+  const subtitleRef = useRef(null)
+  const buttonsRef = useRef(null)
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-forest-950 px-6 pt-24 md:px-10">
-      <RadarField />
+      <RadarField
+        avoidRef={contentRef}
+        headlineRef={headlineRef}
+        subtitleRef={subtitleRef}
+        buttonsRef={buttonsRef}
+      />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+      <div ref={contentRef} className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8"
         >
-          <LogoMark className="h-16 w-16 md:h-20 md:w-20" />
+          <LogoMark className="h-24 w-auto max-w-none md:h-32 md:w-auto" />
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="font-display text-xs font-medium tracking-[0.4em] text-signal-400 uppercase"
-        >
-          ZOVIVE
-        </motion.p>
-
         <motion.h1
+          ref={headlineRef}
           variants={container}
           initial="hidden"
           animate="show"
@@ -55,6 +58,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
+          ref={subtitleRef}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
@@ -64,6 +68,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
+          ref={buttonsRef}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
