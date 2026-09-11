@@ -24,7 +24,7 @@ function DetailCard({ Icon, label, value, href, pulse = false }) {
             {value}
           </a>
         ) : (
-          <p className="mt-1.5 text-base text-mist-50">{value}</p>
+          <p className="mt-1.5 whitespace-pre-line text-base text-mist-50">{value}</p>
         )}
       </div>
     </div>
@@ -49,7 +49,7 @@ export default function ContactDetails() {
       <DetailCard
         Icon={MapPinIcon}
         label="Location"
-        value="First Floor, 6/262, Ajitha Tower, Kottayi Puthuvassery Chengamanad Road, Puthuvassery, Chengamanad, Ernakulam, Kerala – 683585, India"
+        value={'39/2475-B1, Suite F38,\nLR Towers, SJRRA 104, South Janatha Road, Palarivattom\nKochi, Kerala 682025'}
         pulse
       />
     </div>

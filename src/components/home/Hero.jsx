@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import RadarField from '../RadarField.jsx'
-import { LogoMark } from '../Logo.jsx'
+import LogoReveal from './LogoReveal.jsx'
 import { Button } from '../Button.jsx'
 
 const TAGLINE_WORDS = 'Detect earlier. Understand better. Respond responsibly.'.split(' ')
@@ -34,14 +34,9 @@ export default function Hero() {
       />
 
       <div ref={contentRef} className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
-        >
-          <LogoMark className="h-24 w-auto max-w-none md:h-32 md:w-auto" />
-        </motion.div>
+        <div className="mb-8">
+          <LogoReveal className="h-16 w-auto max-w-none md:h-20 md:w-auto" />
+        </div>
 
         <motion.h1
           ref={headlineRef}

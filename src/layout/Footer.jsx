@@ -93,7 +93,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <span className="text-sm text-mist-400/70">Chengamanad, Ernakulam, Kerala, India</span>
+                  <span className="text-sm text-mist-400/70">Palarivattom, Kochi, Kerala 682025</span>
                 </li>
               </ul>
             </div>
