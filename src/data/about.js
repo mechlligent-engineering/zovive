@@ -15,6 +15,7 @@ export const RESPONSIBLE_PRINCIPLES = [
     title: 'Human verification for critical decisions',
     detail:
       'Every detection can be reviewed and corrected by a human — from species identification to the cause of a fence event — so the system improves with real-world judgment, not just automated inference.',
+    featured: true,
   },
   { title: 'Privacy-conscious monitoring' },
   { title: 'Reduction of false alerts' },

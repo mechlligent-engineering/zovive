@@ -19,10 +19,10 @@ function LinkedInIcon(props) {
   )
 }
 
-// PLACEHOLDER: update to the real ZOVIVE social profile URLs once available
 const SOCIALS = [
+  // PLACEHOLDER: update to the real ZOVIVE Facebook URL once available
   { label: 'Facebook', href: 'https://facebook.com/zovive', Icon: FacebookIcon },
-  { label: 'LinkedIn', href: 'https://linkedin.com/company/zovive', Icon: LinkedInIcon },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/showcase/zovive-mechlligent/', Icon: LinkedInIcon },
 ]
 
 export default function Footer() {
