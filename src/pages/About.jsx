@@ -6,21 +6,29 @@ import ResponsibleInnovation from '../components/about/ResponsibleInnovation.jsx
 import DevelopmentStatus from '../components/about/DevelopmentStatus.jsx'
 import ParentCompanyNote from '../components/about/ParentCompanyNote.jsx'
 import CtaSection from '../components/CtaSection.jsx'
+import SEO from '../components/SEO.jsx'
 
 export default function About() {
   return (
     <>
+      <SEO
+        title="About ZOVIVE | Wildlife Protection Technology"
+        description="Learn about ZOVIVE, an engineering-led wildlife technology initiative focused on intelligent detection, responsible innovation, and reducing human-wildlife conflict."
+      />
+
       <PageHeader
         eyebrow="About"
         title="About ZOVIVE"
         description="Building the connective layer between people, wildlife, and infrastructure — through detection, not confrontation."
       />
+
       <MissionVision />
       <OurPosition />
       <EngineeringLed />
       <ResponsibleInnovation />
       <DevelopmentStatus />
       <ParentCompanyNote />
+
       <CtaSection
         heading="Interested in ZOVIVE's approach?"
         description="Talk to us about pilots, partnerships, and what responsible, technology-led wildlife conflict mitigation looks like at your site."
