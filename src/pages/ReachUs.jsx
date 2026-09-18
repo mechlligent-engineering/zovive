@@ -1,10 +1,16 @@
 import { Reveal } from '../components/Reveal.jsx'
 import ContactDetails from '../components/contact/ContactDetails.jsx'
 import CtaSection from '../components/CtaSection.jsx'
+import SEO from '../components/SEO.jsx'
 
 export default function ReachUs() {
   return (
     <>
+      <SEO
+        title="Contact ZOVIVE | Get in Touch"
+        description="Find ZOVIVE's contact details and reach our team in Kerala, India for partnership inquiries, pilot proposals, wildlife monitoring solutions, and general questions."
+      />
+
       <section className="relative overflow-hidden bg-forest-950 px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-44">
         {/* PLACEHOLDER IMAGE: wide contact/office/field photo — used as a subtle textured
             background behind this whole section, will be heavily dark-overlaid so exact content
