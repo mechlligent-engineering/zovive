@@ -7,10 +7,16 @@ import IndiaFirst from '../components/home/IndiaFirst.jsx'
 import MissionStatement from '../components/home/MissionStatement.jsx'
 import StatusStrip from '../components/home/StatusStrip.jsx'
 import CtaSection from '../components/CtaSection.jsx'
+import SEO from '../components/SEO.jsx'
 
 export default function Home() {
   return (
     <>
+      <SEO
+        title="ZOVIVE | AI-Powered Wildlife Monitoring & Conservation"
+        description="ZOVIVE by Mechlligent Engineering develops AI-powered wildlife monitoring and conflict mitigation solutions for intelligent, responsible conservation."
+      />
+
       <Hero />
       <IntroVideo />
       <Challenge />
